@@ -5,3 +5,5 @@ Eclipse Enterprise for Java (EE4J) is an open source initiative to create standa
 This organization provides a home for Git repositories that implement the various APIs, TCKs, and RIs for the related specifications.
 
 Please see the [Eclipse EE4J Project](https://projects.eclipse.org/projects/ee4j).
+
+EE4J [Wiki](https://github.com/eclipse-ee4j/ee4j/wiki)
