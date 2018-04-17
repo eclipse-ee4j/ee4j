@@ -26,7 +26,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Jakarta EE Project</name>
+    <name>EE4J Project</name>
     <url>https://projects.eclipse.org/projects/ee4j</url>
     <description>
         Eclipse Enterprise for Java (EE4J) is an open source initiative to create standard APIs,
