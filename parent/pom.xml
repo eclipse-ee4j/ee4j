@@ -40,6 +40,17 @@
     </organization>
     <inceptionYear>2018</inceptionYear>
 
+    <developers>
+        <developer>
+            <id>lukasj</id>
+            <name>Lukas Jungmann</name>
+            <organization>Oracle</organization>
+            <roles>
+                <role>lead</role>
+            </roles>
+        </developer>
+    </developers>
+
     <licenses>
         <license>
             <name>Eclipse Public License v. 2.0</name>
