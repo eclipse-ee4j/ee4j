@@ -45,9 +45,6 @@
             <id>lukasj</id>
             <name>Lukas Jungmann</name>
             <organization>Oracle</organization>
-            <roles>
-                <role>lead</role>
-            </roles>
         </developer>
     </developers>
 
