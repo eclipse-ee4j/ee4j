@@ -1,0 +1,6 @@
+# IntelliJ IDEA
+.idea/
+
+# Maven build artifacts
+parent/target/
+
