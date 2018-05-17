@@ -45,6 +45,7 @@
             <id>eclipseee4j</id>
             <name>Eclipse EE4J Developers</name>
             <organization>Eclipse Foundation</organization>
+            <email>ee4j-pmc@eclipse.org</email>
         </developer>
     </developers>
 
