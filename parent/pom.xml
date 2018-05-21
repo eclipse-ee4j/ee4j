@@ -38,13 +38,14 @@
         <name>Eclipse Foundation</name>
         <url>https://www.eclipse.org</url>
     </organization>
-    <inceptionYear>2018</inceptionYear>
+    <inceptionYear>2017</inceptionYear>
 
     <developers>
         <developer>
-            <id>lukasj</id>
-            <name>Lukas Jungmann</name>
-            <organization>Oracle</organization>
+            <id>eclipseee4j</id>
+            <name>Eclipse EE4J Developers</name>
+            <organization>Eclipse Foundation</organization>
+            <email>ee4j-pmc@eclipse.org</email>
         </developer>
     </developers>
 
