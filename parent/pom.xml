@@ -149,7 +149,7 @@
                         <serverId>ossrh</serverId>
                         <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                         <autoReleaseAfterClose>false</autoReleaseAfterClose>
-                        <!-- Skip based on the well known maven.deploy.skip property -->
+                        <!-- Skip based on the maven.deploy.skip property -->
                         <skipNexusStagingDeployMojo>${maven.deploy.skip}</skipNexusStagingDeployMojo>
                     </configuration>
                 </plugin>
