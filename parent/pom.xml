@@ -158,7 +158,6 @@
     </build>
 
     <profiles>
-
         <!--
             This profile provides configuration for the plugins that required in
             order to deploy non SNAPSHOT artifacts.
