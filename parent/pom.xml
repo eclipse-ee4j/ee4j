@@ -159,7 +159,7 @@
 
     <profiles>
         <!--
-            This profile provides configuration for the plugins that required in
+            This profile provides configuration for the plugins that are required are in
             order to deploy non SNAPSHOT artifacts.
             SNAPSHOT artifacts can be deployed without using any profile.
         -->
