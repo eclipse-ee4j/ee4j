@@ -114,8 +114,8 @@
         <sonatypeOssDistMgmtReleasesUrl>https://oss.sonatype.org/service/local/staging/deploy/maven2/</sonatypeOssDistMgmtReleasesUrl>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--
-          intialize release.arguments to empty, otherwise if not defined
-          it can fail the release plugin
+          Initialize release.arguments to empty, otherwise if not defined
+          it can fail the release plugin.
         -->
         <release.arguments></release.arguments>
     </properties>
@@ -133,11 +133,36 @@
                         <arguments>-Poss-release ${release.arguments}</arguments>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <configuration>
+                        <!-- To prefer nexus-staging-maven-plugin -->
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.6.8</version>
+                    <configuration>
+                        <serverId>ossrh</serverId>
+                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                        <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                        <!-- Skip based on the maven.deploy.skip property -->
+                        <skipNexusStagingDeployMojo>${maven.deploy.skip}</skipNexusStagingDeployMojo>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
 
     <profiles>
+        <!--
+            This profile provides configuration for the plugins that are required are in
+            order to deploy non SNAPSHOT artifacts.
+            SNAPSHOT artifacts can be deployed without using any profile.
+        -->
         <profile>
             <id>oss-release</id>
             <build>
@@ -190,6 +215,8 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
+                        <!-- Older versions have issues with the gpg passphrase -->
+                        <version>1.6</version>
                         <configuration>
                             <gpgArguments>
                                 <arg>--pinentry-mode</arg>
@@ -206,10 +233,19 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
 
+        <!--
+            This profile enables consuming snapshot artifacts from the ossrh
+            snapshots repository.
+        -->
         <profile>
             <id>snapshots</id>
             <activation>
@@ -243,6 +279,10 @@
             </pluginRepositories>
         </profile>
 
+        <!--
+            This profile enables consuming artifacts from the ossrh staging
+            repository group.
+        -->
         <profile>
             <id>staging</id>
             <activation>
