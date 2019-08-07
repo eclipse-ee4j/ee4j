@@ -292,6 +292,11 @@
                         <enabled>false</enabled>
                     </snapshots>
                 </repository>
+                <!-- Work around the current jakarta.enterprise:jakarta.enterprise.cdi-api staging issue -->
+                <repository>
+                    <id>cdi-api-staging</id>
+                    <url>https://oss.sonatype.org/content/repositories/central_bundles-18505</url>
+                </repository>
             </repositories>
             <pluginRepositories>
                 <pluginRepository>
