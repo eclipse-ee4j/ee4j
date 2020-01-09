@@ -96,6 +96,19 @@
         </mailingList>
     </mailingLists>
 
+    <properties>
+        <sonatypeOssDistMgmtNexusUrl>https://jakarta.oss.sonatype.org/</sonatypeOssDistMgmtNexusUrl>
+        <sonatypeOssDistMgmtSnapshotsUrl>${sonatypeOssDistMgmtNexusUrl}content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
+        <sonatypeOssDistMgmtStagingUrl>${sonatypeOssDistMgmtNexusUrl}content/repositories/staging/</sonatypeOssDistMgmtStagingUrl>
+        <sonatypeOssDistMgmtReleasesUrl>${sonatypeOssDistMgmtNexusUrl}service/local/staging/deploy/maven2/</sonatypeOssDistMgmtReleasesUrl>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--
+          Initialize release.arguments to empty, otherwise if not defined
+          it can fail the release plugin.
+        -->
+        <release.arguments></release.arguments>
+    </properties>
+
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
@@ -108,17 +121,6 @@
             <url>${sonatypeOssDistMgmtReleasesUrl}</url>
         </repository>
     </distributionManagement>
-
-    <properties>
-        <sonatypeOssDistMgmtSnapshotsUrl>https://jakarta.oss.sonatype.org/content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
-        <sonatypeOssDistMgmtReleasesUrl>https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/</sonatypeOssDistMgmtReleasesUrl>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--
-          Initialize release.arguments to empty, otherwise if not defined
-          it can fail the release plugin.
-        -->
-        <release.arguments></release.arguments>
-    </properties>
 
     <build>
         <pluginManagement>
@@ -139,7 +141,7 @@
                     <version>1.6.8</version>
                     <configuration>
                         <serverId>ossrh</serverId>
-                        <nexusUrl>https://jakarta.oss.sonatype.org/</nexusUrl>
+                        <nexusUrl>${sonatypeOssDistMgmtNexusUrl}</nexusUrl>
                         <autoReleaseAfterClose>false</autoReleaseAfterClose>
                         <!-- Skip based on the maven.deploy.skip property -->
                         <skipNexusStagingDeployMojo>${maven.deploy.skip}</skipNexusStagingDeployMojo>
@@ -247,7 +249,7 @@
                 <repository>
                     <id>sonatype-nexus-snapshots</id>
                     <name>Sonatype Nexus Snapshots</name>
-                    <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots</url>
+                    <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>
@@ -260,7 +262,7 @@
                 <pluginRepository>
                     <id>sonatype-nexus-snapshots</id>
                     <name>Sonatype Nexus Snapshots</name>
-                    <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots</url>
+                    <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>
@@ -284,7 +286,7 @@
                 <repository>
                     <id>sonatype-nexus-staging</id>
                     <name>Sonatype Nexus Staging</name>
-                    <url>https://jakarta.oss.sonatype.org/content/repositories/staging</url>
+                    <url>${sonatypeOssDistMgmtStagingUrl}</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -297,7 +299,7 @@
                 <pluginRepository>
                     <id>sonatype-nexus-staging</id>
                     <name>Sonatype Nexus Staging</name>
-                    <url>https://jakarta.oss.sonatype.org/content/repositories/staging</url>
+                    <url>${sonatypeOssDistMgmtStagingUrl}</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
