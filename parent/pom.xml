@@ -110,8 +110,8 @@
     </distributionManagement>
 
     <properties>
-        <sonatypeOssDistMgmtSnapshotsUrl>https://oss.sonatype.org/content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
-        <sonatypeOssDistMgmtReleasesUrl>https://oss.sonatype.org/service/local/staging/deploy/maven2/</sonatypeOssDistMgmtReleasesUrl>
+        <sonatypeOssDistMgmtSnapshotsUrl>https://jakarta.oss.sonatype.org/content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
+        <sonatypeOssDistMgmtReleasesUrl>https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/</sonatypeOssDistMgmtReleasesUrl>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--
           Initialize release.arguments to empty, otherwise if not defined
@@ -139,7 +139,7 @@
                     <version>1.6.8</version>
                     <configuration>
                         <serverId>ossrh</serverId>
-                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                        <nexusUrl>https://jakarta.oss.sonatype.org/</nexusUrl>
                         <autoReleaseAfterClose>false</autoReleaseAfterClose>
                         <!-- Skip based on the maven.deploy.skip property -->
                         <skipNexusStagingDeployMojo>${maven.deploy.skip}</skipNexusStagingDeployMojo>
@@ -247,7 +247,7 @@
                 <repository>
                     <id>sonatype-nexus-snapshots</id>
                     <name>Sonatype Nexus Snapshots</name>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                    <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>
@@ -260,7 +260,7 @@
                 <pluginRepository>
                     <id>sonatype-nexus-snapshots</id>
                     <name>Sonatype Nexus Snapshots</name>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                    <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>
@@ -284,7 +284,7 @@
                 <repository>
                     <id>sonatype-nexus-staging</id>
                     <name>Sonatype Nexus Staging</name>
-                    <url>https://oss.sonatype.org/content/repositories/staging</url>
+                    <url>https://jakarta.oss.sonatype.org/content/repositories/staging</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -297,7 +297,7 @@
                 <pluginRepository>
                     <id>sonatype-nexus-staging</id>
                     <name>Sonatype Nexus Staging</name>
-                    <url>https://oss.sonatype.org/content/repositories/staging</url>
+                    <url>https://jakarta.oss.sonatype.org/content/repositories/staging</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
