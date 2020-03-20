@@ -162,6 +162,12 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.1.1</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <!-- Older versions have issues with the gpg passphrase -->
+                    <version>1.6</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -224,8 +230,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <!-- Older versions have issues with the gpg passphrase -->
-                        <version>1.6</version>
                         <configuration>
                             <gpgArguments>
                                 <arg>--pinentry-mode</arg>
