@@ -1,0 +1,3 @@
+= Jakarta EE Schemas for Staging
+
+Use this directory to stage Jakarta EE XML Schemas that are to be published to https://jakarta.ee/xml/ns/jakartaee. 
