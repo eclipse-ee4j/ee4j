@@ -128,7 +128,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.3</version>
+                    <version>3.0.0-M6</version>
                     <configuration>
                         <mavenExecutorId>forked-path</mavenExecutorId>
                         <useReleaseProfile>false</useReleaseProfile>
@@ -194,7 +194,7 @@
                                 <configuration>
                                     <rules>
                                         <requireMavenVersion>
-                                            <version>[3.0.4,)</version>
+                                            <version>[3.2.5,)</version>
                                             <message>Maven 3.0 through 3.0.3 inclusive does not pass
                                                 correct settings.xml to Maven Release Plugin.</message>
                                         </requireMavenVersion>
