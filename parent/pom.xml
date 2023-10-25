@@ -193,11 +193,12 @@
     <profiles>
 
         <profile>
-        <!-- Generates SBOM. 
-             Inactivate with -P-sbom-->
+        <!-- Generates SBOM. Skip with '-DskipSBOM'.-->
             <id>sbom</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+              <property>
+                <name>!skipSBOM</name>
+              </property>
             </activation>
             <build>
                 <plugins>
