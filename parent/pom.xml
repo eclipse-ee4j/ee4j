@@ -98,10 +98,6 @@
     </mailingLists>
 
     <properties>
-        <sonatypeOssDistMgmtNexusUrl>https://jakarta.oss.sonatype.org/</sonatypeOssDistMgmtNexusUrl>
-        <sonatypeOssDistMgmtSnapshotsUrl>${sonatypeOssDistMgmtNexusUrl}content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
-        <sonatypeOssDistMgmtStagingUrl>${sonatypeOssDistMgmtNexusUrl}content/repositories/staging/</sonatypeOssDistMgmtStagingUrl>
-        <sonatypeOssDistMgmtReleasesUrl>${sonatypeOssDistMgmtNexusUrl}service/local/staging/deploy/maven2/</sonatypeOssDistMgmtReleasesUrl>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--
           Initialize release.arguments to empty, otherwise if not defined
@@ -115,12 +111,12 @@
         <snapshotRepository>
             <id>ossrh</id>
             <name>Sonatype Nexus Snapshots</name>
-            <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
+            <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots/</url>
         </snapshotRepository>
         <repository>
             <id>ossrh</id>
             <name>Sonatype Nexus Releases</name>
-            <url>${sonatypeOssDistMgmtReleasesUrl}</url>
+            <url>https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 
@@ -184,6 +180,11 @@
                     <groupId>org.asciidoctor</groupId>
                     <artifactId>asciidoctor-maven-plugin</artifactId>
                     <version>2.2.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>3.1.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -317,7 +318,7 @@
                 <repository>
                     <id>sonatype-nexus-snapshots</id>
                     <name>Sonatype Nexus Snapshots</name>
-                    <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
+                    <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots/</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>
@@ -330,7 +331,7 @@
                 <pluginRepository>
                     <id>sonatype-nexus-snapshots</id>
                     <name>Sonatype Nexus Snapshots</name>
-                    <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
+                    <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots/</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>
@@ -354,7 +355,7 @@
                 <repository>
                     <id>sonatype-nexus-staging</id>
                     <name>Sonatype Nexus Staging</name>
-                    <url>${sonatypeOssDistMgmtStagingUrl}</url>
+                    <url>https://jakarta.oss.sonatype.org/content/repositories/staging/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -367,7 +368,7 @@
                 <pluginRepository>
                     <id>sonatype-nexus-staging</id>
                     <name>Sonatype Nexus Staging</name>
-                    <url>${sonatypeOssDistMgmtStagingUrl}</url>
+                    <url>https://jakarta.oss.sonatype.org/content/repositories/staging/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
