@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2022 Contributors to the Eclipse Foundation. All rights reserved.
+    Copyright (c) 2022, 2025 Contributors to the Eclipse Foundation. All rights reserved.
     Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -24,7 +24,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.eclipse.ee4j</groupId>
     <artifactId>project</artifactId>
-    <version>1.0.10-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>EE4J Project</name>
@@ -98,10 +98,6 @@
     </mailingLists>
 
     <properties>
-        <sonatypeOssDistMgmtNexusUrl>https://jakarta.oss.sonatype.org/</sonatypeOssDistMgmtNexusUrl>
-        <sonatypeOssDistMgmtSnapshotsUrl>${sonatypeOssDistMgmtNexusUrl}content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
-        <sonatypeOssDistMgmtStagingUrl>${sonatypeOssDistMgmtNexusUrl}content/repositories/staging/</sonatypeOssDistMgmtStagingUrl>
-        <sonatypeOssDistMgmtReleasesUrl>${sonatypeOssDistMgmtNexusUrl}service/local/staging/deploy/maven2/</sonatypeOssDistMgmtReleasesUrl>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--
           Initialize release.arguments to empty, otherwise if not defined
@@ -110,19 +106,6 @@
         <release.arguments></release.arguments>
         <project.build.outputTimestamp>2020-12-19T17:24:00Z</project.build.outputTimestamp>
     </properties>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <name>Sonatype Nexus Releases</name>
-            <url>${sonatypeOssDistMgmtReleasesUrl}</url>
-        </repository>
-    </distributionManagement>
 
     <build>
         <pluginManagement>
@@ -138,16 +121,9 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>1.6.14</version>
-                    <configuration>
-                        <serverId>ossrh</serverId>
-                        <nexusUrl>${sonatypeOssDistMgmtNexusUrl}</nexusUrl>
-                        <autoReleaseAfterClose>false</autoReleaseAfterClose>
-                        <!-- Skip based on the maven.deploy.skip property -->
-                        <skipNexusStagingDeployMojo>${maven.deploy.skip}</skipNexusStagingDeployMojo>
-                    </configuration>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>0.7.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -301,86 +277,16 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.7.0</version>
                         <extensions>true</extensions>
+                        <configuration>
+                            <autoPublish>true</autoPublish>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-
-        <!--
-            This profile enables consuming snapshot artifacts from the ossrh
-            snapshots repository.
-        -->
-        <profile>
-            <id>snapshots</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>sonatype-nexus-snapshots</id>
-                    <name>Sonatype Nexus Snapshots</name>
-                    <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>sonatype-nexus-snapshots</id>
-                    <name>Sonatype Nexus Snapshots</name>
-                    <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
-
-        <!--
-            This profile enables consuming artifacts from the ossrh staging
-            repository group.
-        -->
-        <profile>
-            <id>staging</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>sonatype-nexus-staging</id>
-                    <name>Sonatype Nexus Staging</name>
-                    <url>${sonatypeOssDistMgmtStagingUrl}</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>sonatype-nexus-staging</id>
-                    <name>Sonatype Nexus Staging</name>
-                    <url>${sonatypeOssDistMgmtStagingUrl}</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
         </profile>
         <profile>
             <id>dash-licenses</id>
