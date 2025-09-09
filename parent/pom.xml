@@ -281,6 +281,9 @@
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
                         <extensions>true</extensions>
+                        <configuration>
+                            <autoPublish>${autoPublish}</autoPublish>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
