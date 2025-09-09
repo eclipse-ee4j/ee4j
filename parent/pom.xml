@@ -99,6 +99,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <autoPublish>true</autoPublish>
         <!--
           Initialize release.arguments to empty, otherwise if not defined
           it can fail the release plugin.
