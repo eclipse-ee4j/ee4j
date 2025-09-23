@@ -99,6 +99,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Maven Central properties -->
+        <repo.sonatype.url>https://central.sonatype.com</repo.sonatype.url>
         <autoPublish>true</autoPublish>
         <!--
           Initialize release.arguments to empty, otherwise if not defined
@@ -107,6 +109,30 @@
         <release.arguments></release.arguments>
         <project.build.outputTimestamp>2020-12-19T17:24:00Z</project.build.outputTimestamp>
     </properties>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <name>Central Portal Snapshots</name>
+            <id>central-portal-snapshots</id>
+            <url>${repo.sonatype.url}/repository/maven-snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </snapshotRepository>
+        <repository>
+            <id>central</id>
+            <url>${repo.sonatype.url}</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </distributionManagement>
 
     <build>
         <pluginManagement>
