@@ -110,30 +110,6 @@
         <project.build.outputTimestamp>2020-12-19T17:24:00Z</project.build.outputTimestamp>
     </properties>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <name>Central Portal Snapshots</name>
-            <id>central-portal-snapshots</id>
-            <url>${repo.sonatype.url}/repository/maven-snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </snapshotRepository>
-        <repository>
-            <id>central</id>
-            <url>${repo.sonatype.url}</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </distributionManagement>
-
     <build>
         <pluginManagement>
             <plugins>
@@ -231,9 +207,15 @@
         </profile>
 
         <!--
-            This profile provides configuration for the plugins that are required are in
-            order to deploy non SNAPSHOT artifacts.
-            SNAPSHOT artifacts can be deployed without using any profile.
+            This profile provides configuration for the plugins that are required in
+            order to deploy both release and snapshot artifacts.
+
+            Maven Central publishing plugin is taking care of the deployment goal
+            and generation of checksums (see https://central.sonatype.org/publish/publish-portal-maven/#checksums).
+
+            Generating the sources and javadoc jars, as well as GPG signing
+            are also enabled by this profile and are required
+            to pass the validation rules of Maven Central publishing.
         -->
         <profile>
             <id>oss-release</id>
@@ -309,6 +291,11 @@
                         <extensions>true</extensions>
                         <configuration>
                             <autoPublish>${autoPublish}</autoPublish>
+                            <deploymentName>${project.name} ${project.version}</deploymentName>
+                            <publishingServerId>central</publishingServerId>
+                            <waitUntil>published</waitUntil>
+                            <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
+                            <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots/</centralSnapshotsUrl>
                         </configuration>
                     </plugin>
                 </plugins>
