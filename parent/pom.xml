@@ -293,7 +293,7 @@
                             <autoPublish>${autoPublish}</autoPublish>
                             <deploymentName>${project.name} ${project.version}</deploymentName>
                             <publishingServerId>central</publishingServerId>
-                            <waitUntil>published</waitUntil>
+                            <waitUntil>validated</waitUntil>
                             <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
                             <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots/</centralSnapshotsUrl>
                         </configuration>
