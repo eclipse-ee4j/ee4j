@@ -99,30 +99,12 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Maven Central properties -->
-        <repo.sonatype.url>https://central.sonatype.com</repo.sonatype.url>
-        <autoPublish>true</autoPublish>
-        <!--
-          Initialize release.arguments to empty, otherwise if not defined
-          it can fail the release plugin.
-        -->
-        <release.arguments></release.arguments>
         <project.build.outputTimestamp>2020-12-19T17:24:00Z</project.build.outputTimestamp>
     </properties>
 
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>3.1.1</version>
-                    <configuration>
-                        <mavenExecutorId>forked-path</mavenExecutorId>
-                        <useReleaseProfile>false</useReleaseProfile>
-                        <arguments>-Poss-release ${release.arguments}</arguments>
-                    </configuration>
-                </plugin>
                 <plugin>
                     <groupId>org.sonatype.central</groupId>
                     <artifactId>central-publishing-maven-plugin</artifactId>
@@ -294,7 +276,7 @@
                         <artifactId>central-publishing-maven-plugin</artifactId>
                         <extensions>true</extensions>
                         <configuration>
-                            <autoPublish>${autoPublish}</autoPublish>
+                            <autoPublish>true</autoPublish>
                             <deploymentName>${project.name} ${project.version}</deploymentName>
                             <publishingServerId>central</publishingServerId>
                             <waitUntil>validated</waitUntil>
