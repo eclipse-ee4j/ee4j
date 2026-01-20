@@ -386,7 +386,7 @@
                         <configuration>
                             <autoPublish>true</autoPublish>
                             <deploymentName>${project.name} ${project.version}</deploymentName>
-                            <publishingServerId>central</publishingServerId>
+                            <publishingServerId>repo3.eclipse.org</publishingServerId>
                             <waitUntil>validated</waitUntil>
                             <!-- TODO verify this is the correct URL -->
                             <centralBaseUrl>https://repo3.eclipse.org/repository/${nexus.staging.repository}/</centralBaseUrl>
