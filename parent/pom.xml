@@ -326,7 +326,7 @@
                                             <property>nexus.staging.repository</property>
                                             <message>
                                                 You must set the 'nexus.staging.repository' system property
-                                                For example, -Dynexus.staging.repository=data-maven2-staging on the command line
+                                                For example, -Dnexus.staging.repository=data-maven2-staging on the command line
                                                 in order to use this profile.
                                             </message>
                                         </requireProperty>
@@ -398,7 +398,7 @@
         </profile>
         
         <!--
-            Promots an artifact from the an eclipse managed staging repository
+            Promotes an artifact from the an eclipse managed staging repository
             to maven central, which will maintain the artifact's hash values for certification requests.
         -->
         <profile>
@@ -420,7 +420,7 @@
                                             <property>nexus.staging.repository</property>
                                             <message>
                                                 You must set the 'nexus.staging.repository' system property
-                                                For example, -Dynexus.staging.repository=data-maven2-staging on the command line
+                                                For example, -Dnexus.staging.repository=data-maven2-staging on the command line
                                                 in order to use this profile.
                                             </message>
                                         </requireProperty>
