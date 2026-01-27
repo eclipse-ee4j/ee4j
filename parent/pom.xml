@@ -450,6 +450,9 @@
                                     <goal>rc-sync</goal>
                                 </goals>
                                 <configuration>
+                                    <bearerCreate>true</bearerCreate>
+                                    <generateChecksums256>true</generateChecksums256>
+                                    <generateChecksums512>true</generateChecksums512>
                                     <repositoryUrl>https://repo3.eclipse.org/repository/${nexus.staging.repository}/</repositoryUrl>
                                     <signArtifacts>true</signArtifacts>
                                     <syncAutoPublish>true</syncAutoPublish>
