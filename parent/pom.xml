@@ -118,7 +118,7 @@
                 <plugin>
                     <groupId>org.eclipse.cbi.central</groupId>
                     <artifactId>central-staging-plugins</artifactId>
-                    <version>1.4.0</version>
+                    <version>1.4.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
