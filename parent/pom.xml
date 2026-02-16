@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2022, 2025 Contributors to the Eclipse Foundation. All rights reserved.
+    Copyright (c) 2022, 2026 Contributors to the Eclipse Foundation. All rights reserved.
     Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -99,14 +99,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Maven Central properties -->
-        <repo.sonatype.url>https://central.sonatype.com</repo.sonatype.url>
-        <autoPublish>true</autoPublish>
-        <!--
-          Initialize release.arguments to empty, otherwise if not defined
-          it can fail the release plugin.
-        -->
-        <release.arguments></release.arguments>
         <project.build.outputTimestamp>2020-12-19T17:24:00Z</project.build.outputTimestamp>
     </properties>
 
@@ -115,18 +107,18 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>3.1.1</version>
-                    <configuration>
-                        <mavenExecutorId>forked-path</mavenExecutorId>
-                        <useReleaseProfile>false</useReleaseProfile>
-                        <arguments>-Poss-release ${release.arguments}</arguments>
-                    </configuration>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>3.1.4</version>
                 </plugin>
                 <plugin>
                     <groupId>org.sonatype.central</groupId>
                     <artifactId>central-publishing-maven-plugin</artifactId>
-                    <version>0.9.0</version>
+                    <version>0.10.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.eclipse.cbi.central</groupId>
+                    <artifactId>central-staging-plugins</artifactId>
+                    <version>1.4.3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -136,12 +128,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.4.2</version>
+                    <version>3.5.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.3.1</version>
+                    <version>3.4.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -289,7 +281,7 @@
                         <artifactId>central-publishing-maven-plugin</artifactId>
                         <extensions>true</extensions>
                         <configuration>
-                            <autoPublish>${autoPublish}</autoPublish>
+                            <autoPublish>true</autoPublish>
                             <deploymentName>${project.name} ${project.version}</deploymentName>
                             <publishingServerId>central</publishingServerId>
                             <waitUntil>validated</waitUntil>
@@ -300,6 +292,193 @@
                 </plugins>
             </build>
         </profile>
+
+        <!--
+            This profile provides configuration for the plugins that are required in
+            order to deploy artifacts to an eclipse managed staging repository.
+        -->
+        <profile>
+            <id>stage-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>enforce-maven</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireMavenVersion>
+                                            <version>[3.2.5,)</version>
+                                            <message>Maven 3.0 through 3.0.3 inclusive does not pass
+                                                correct settings.xml to Maven Release Plugin.</message>
+                                        </requireMavenVersion>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>enforce-property</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireProperty>
+                                            <property>nexus.staging.repository</property>
+                                            <message>
+                                                You must set the 'nexus.staging.repository' system property
+                                                For example, -Dnexus.staging.repository=data-maven2-staging on the command line
+                                                in order to use this profile.
+                                            </message>
+                                        </requireProperty>
+                                    </rules>
+                                    <fail>true</fail>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <configuration>
+                            <altReleaseDeploymentRepository>
+                                repo3.eclipse.org::default::https://repo3.eclipse.org/repository/${nexus.staging.repository}/
+                            </altReleaseDeploymentRepository>
+                            <deployAtEnd>true</deployAtEnd> <!-- Do not deploy if build failure -->
+                            <skip>snapshots</skip>          <!-- Skip if SNAPSHOT version - Disallow staging SNAPSHOT-->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <!--
+            Promotes an artifact from the an eclipse managed staging repository
+            to maven central, which will maintain the artifact's hash values for certification requests.
+        -->
+        <profile>
+            <id>promote-stage</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>enforce-java</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireJavaVersion>
+                                            <version>[17,)</version> <!-- central-staging-plugins requires JDK 17 or newer -->
+                                        </requireJavaVersion>
+                                    </rules>
+                                    <fail>true</fail>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>enforce-property</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireProperty>
+                                            <property>nexus.staging.repository</property>
+                                            <message>
+                                                You must set the 'nexus.staging.repository' system property
+                                                For example, -Dnexus.staging.repository=data-maven2-staging on the command line
+                                                in order to use this profile.
+                                            </message>
+                                        </requireProperty>
+                                    </rules>
+                                    <fail>true</fail>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin> <!-- Skip the default deploy plugin -->
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                            <configuration>
+                                <skip>true</skip>
+                            </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.eclipse.cbi.central</groupId>
+                        <artifactId>central-staging-plugins</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sync-to-central</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>rc-sync</goal>
+                                </goals>
+                                <configuration>
+                                    <bearerCreate>true</bearerCreate>
+                                    <generateChecksums256>true</generateChecksums256>
+                                    <generateChecksums512>true</generateChecksums512>
+                                    <repositoryUrl>https://repo3.eclipse.org/repository/${nexus.staging.repository}/</repositoryUrl>
+                                    <signArtifacts>true</signArtifacts>
+                                    <syncAutoPublish>true</syncAutoPublish>
+                                    <syncDropAfterPublish>true</syncDropAfterPublish>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <!--
             This profile enables consuming snapshot artifacts from the snapshots repository.
         -->
@@ -321,7 +500,57 @@
                     </snapshots>
                 </repository>
             </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <name>Central Portal Snapshots</name>
+                    <id>central-portal-snapshots</id>
+                    <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
         </profile>
+
+        <!--
+            This profile enables consuming staged artifacts from the nexus repository.
+        -->
+        <profile>
+            <id>staged</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <name>Nexus staging</name>
+                    <id>repo3.eclipse.org</id>
+                    <url>https://repo3.eclipse.org/repository/ee4j-staging/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <name>Nexus staging</name>
+                    <id>repo3.eclipse.org</id>
+                    <url>https://repo3.eclipse.org/repository/ee4j-staging/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
         <profile>
             <id>dash-licenses</id>
             <pluginRepositories>
