@@ -213,6 +213,14 @@
         -->
         <profile>
             <id>oss-release</id>
+            <properties>
+                <!-- It is recommended to hardcode the name as the plugin usually takes
+                     the last project proccessed in the reactor - that can be confusing
+                     when you list deployments on Maven Central website. -->
+                <release.projectName>${project.name}</release.projectName>
+                <release.autoPublish>true</release.autoPublish>
+                <release.waitUntil>validated</release.waitUntil>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -284,10 +292,10 @@
                         <artifactId>central-publishing-maven-plugin</artifactId>
                         <extensions>true</extensions>
                         <configuration>
-                            <autoPublish>true</autoPublish>
-                            <deploymentName>${project.name} ${project.version}</deploymentName>
+                            <autoPublish>${release.autoPublish}</autoPublish>
+                            <deploymentName>${release.projectName} ${project.version}</deploymentName>
                             <publishingServerId>central</publishingServerId>
-                            <waitUntil>validated</waitUntil>
+                            <waitUntil>${release.waitUntil}</waitUntil>
                             <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
                             <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots/</centralSnapshotsUrl>
                         </configuration>
@@ -452,9 +460,9 @@
                     <plugin> <!-- Skip the default deploy plugin -->
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
-                            <configuration>
-                                <skip>true</skip>
-                            </configuration>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.eclipse.cbi.central</groupId>
