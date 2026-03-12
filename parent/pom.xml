@@ -400,7 +400,7 @@
                         <artifactId>maven-deploy-plugin</artifactId>
                         <configuration>
                             <altReleaseDeploymentRepository>
-                                repo3.eclipse.org::default::https://repo3.eclipse.org/repository/${nexus.staging.repository}/
+                                repo.eclipse.org::default::https://repo.eclipse.org/repository/${nexus.staging.repository}/
                             </altReleaseDeploymentRepository>
                             <deployAtEnd>true</deployAtEnd> <!-- Do not deploy if build failure -->
                             <skip>snapshots</skip>          <!-- Skip if SNAPSHOT version - Disallow staging SNAPSHOT-->
@@ -478,7 +478,7 @@
                                     <bearerCreate>true</bearerCreate>
                                     <generateChecksums256>true</generateChecksums256>
                                     <generateChecksums512>true</generateChecksums512>
-                                    <repositoryUrl>https://repo3.eclipse.org/repository/${nexus.staging.repository}/</repositoryUrl>
+                                    <repositoryUrl>https://repo.eclipse.org/repository/${nexus.staging.repository}/</repositoryUrl>
                                     <signArtifacts>true</signArtifacts>
                                     <syncAutoPublish>true</syncAutoPublish>
                                     <syncDropAfterPublish>true</syncDropAfterPublish>
@@ -537,8 +537,8 @@
             <repositories>
                 <repository>
                     <name>Nexus staging</name>
-                    <id>repo3.eclipse.org</id>
-                    <url>https://repo3.eclipse.org/repository/ee4j-staging/</url>
+                    <id>repo.eclipse.org</id>
+                    <url>https://repo.eclipse.org/repository/ee4j-staging/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -550,8 +550,8 @@
             <pluginRepositories>
                 <pluginRepository>
                     <name>Nexus staging</name>
-                    <id>repo3.eclipse.org</id>
-                    <url>https://repo3.eclipse.org/repository/ee4j-staging/</url>
+                    <id>repo.eclipse.org</id>
+                    <url>https://repo.eclipse.org/repository/ee4j-staging/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
