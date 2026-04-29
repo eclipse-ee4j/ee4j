@@ -118,7 +118,7 @@
                 <plugin>
                     <groupId>org.eclipse.cbi.central</groupId>
                     <artifactId>central-staging-plugins</artifactId>
-                    <version>1.4.4</version>
+                    <version>1.4.5</version> <!-- TODO update to 1.4.6 when available-->
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -482,6 +482,7 @@
                                     <signArtifacts>true</signArtifacts>
                                     <syncAutoPublish>true</syncAutoPublish>
                                     <syncDropAfterPublish>true</syncDropAfterPublish>
+                                    <downloadAdditionalClassifiers>cyclonedx.json,cyclonedx.json.asc,cyclonedx.json.md5,cyclonedx.json.sha1,cyclonedx.xml,cyclonedx.xml.asc,cyclonedx.xml.md5,cyclonedx.xml.sha1,</downloadAdditionalClassifiers>
                                 </configuration>
                             </execution>
                         </executions>
