@@ -482,7 +482,7 @@
                                     <signArtifacts>true</signArtifacts>
                                     <syncAutoPublish>true</syncAutoPublish>
                                     <syncDropAfterPublish>true</syncDropAfterPublish>
-                                    <downloadAdditionalClassifiers>cyclonedx.json,cyclonedx.json.asc,cyclonedx.json.md5,cyclonedx.json.sha1,cyclonedx.xml,cyclonedx.xml.asc,cyclonedx.xml.md5,cyclonedx.xml.sha1,</downloadAdditionalClassifiers>
+                                    <nexusArtifactsResolution>true</nexusArtifactsResolution> <!-- Ensure all artifacts are resolved; not just the base, pom, sources, and javadoc -->
                                 </configuration>
                             </execution>
                         </executions>
